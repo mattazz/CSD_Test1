@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+      table {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular',
+          'Lucida Grande', 'Lucida Sans Unicode',
+          Geneva, Verdana, sans-serif;
+      }
+
+      input,
+      button {
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular',
+          'Lucida Grande', 'Lucida Sans Unicode',
+          Geneva, Verdana, sans-serif;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div align="center">
+      <h1>Grade Calculator</h1>
+
+      <button onclick="addActivity()" id="activity-button">
+        Add Activity</button>
+
+      <label for="activity">Activity</label>
+      <input type="text" id="activity-input" size="3">
+
+      <label for="Weight">Weight</label>
+      <input type="text" id="weight-input" size="3" onchange="ValidateWeight()"><br>
+
+      <button onclick="addGrade()" id="addGrade">
+        Add Grade</button>
+
+      <label for="grade">Grade</label>
+      <input type="text" id="grade-input" size="3" onchange="ValidateGrade()">
+
+      <label for=" activityNo">Activity no</label>
+      <input type="text" id="activityNo-input" size="3"><br>
+
+      <button onclick="deleteActivity()" id="deleteActivity-button">
+        Delete Activity </button>
+
+      <table border="2" id="gradeTable" style="width:80%">
+        <tr>
+          <th>No</th>
+          <th>Activity</th>
+          <th>Weight</th>
+          <th>Grade</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Lab1</td>
+          <td>10</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Lab2</td>
+          <td>20</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Test1</td>
+          <td>30</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Test2</td>
+          <td>40</td>
+          <td></td>
+        </tr>
+      </table>
+      <p id="errorActivity" style="color:red;"></p>
+      <p id="errorWeight" style="color:red;"></p>
+      <p id="errorGrade" style="color:red;"> </p>
+      <p id="errorActivityNo" style="color:red;"> </p>
+      <p id="errorDelete" style="color:red;"> </p>
+      <script>
+        noActivity = 4;
+        totalWeight = 100;
+        activityErrorText = document.getElementById("errorActivity");
+        weightErrorText = document.getElementById("errorWeight");
+        gradeErrorText = document.getElementById("errorGrade");
+        activityNoErrorText = document.getElementById("errorActivityNo");
+        deleteErrorText = document.getElementById("errorDelete")
+
+        //assigning gradeTable for easy calling
+        let gradeTable = document.getElementById("gradeTable")
+
+        function ValidateWeight() {
+          let weight = document.getElementById("weight-input").value
+          let weightRegEx = /^[0-9]+$/
+
+          if (weight == "") {
+            weightErrorText.innerHTML = "Weight can't be empty"
+            console.log("Weight is not valid = false");
+            return false
+          } else if (!weightRegEx.test(weight)) {
+            weightErrorText.innerHTML = "Weight can only be a number"
+            console.log("Weight is not valid / empty = false");
+            return false
+          } else if (weight > 100) {
+            weightErrorText.innerHTML = "Weight can't be above 100, or below 1"
+          }
+
+          else {
+            weightErrorText.innerHTML = ""
+            console.log("Weight is  valid = true");
+
+            return true
+          }
+        }
+
+        function ValidateGrade() {
+          let grade = document.getElementById("grade-input").value
+          let gradeRegEx = /`^[0-9]+$/
+
+          if (grade == "") {
+            gradeErrorText.innerHTML = "Grade can't be empty"
+            console.log("Grade is not valid = false");
+            return false
+          } else if (!gradeRegEx.test(grade)) {
+            gradeErrorText.innerHTML = "Grade can only be a number"
+            console.log("Grade is not valid / empty = false");
+            return false
+          } else if (grade > 100 || grade < 0) {
+            gradeErrorText.innerHTML = "Grade can't be above 100 or below 0."
+            return false
+          }
+          else {
+            gradeErrorText.innerHTML = ""
+            console.log("Grade is  valid = true");
+
+            return true
+          }
+        }
+
+        function ValidateActivityNo() {
+          let activityNo = document.getElementById("activityNo-input").value
+          let activityNoRegEx = /^[0-9]+$/
+
+
+
+          if (activityNo == "") {
+            activityNoErrorText.innerHTML = "Activity No. can't be empty"
+            console.log("Activity No. is not valid = false");
+            return false
+          } else if (!activityNoRegEx.test(activityNo)) {
+            activityErrorText.innerHTML = "Activity No. can only be a number"
+            console.log("Activity No. is not valid / empty = false");
+            return false
+          } else if (activityNo < 1 || activityNo > gradeTable.rows.length - 1) {
+            console.log("table length: " + gradeTable.rows.length);
+            activityNoErrorText.innerHTML = "Can't find Activity No."
+          }
+          else {
+            console.log("Clearing Activity No. Error text");
+            
+            activityNoErrorText.innerHTML = ""
+            console.log("ActivityNo. is  valid = true");
+            return true
+          }
+        }
+
+        function addActivity() {
+          let activityInput = document.getElementById("activity-input").value
+          let weightInput = document.getElementById("weight-input").value
+
+          //validating activity
+          if (!activityInput) {
+            activityErrorText.innerHTML = "Error Message: Activity name is rejected."
+            return
+          }
+
+          //validating weight on button press
+          if (!ValidateWeight()) {
+            return
+          }
+
+
+          noActivity++
+          console.log(gradeTable);
+          //Adding rows
+          let row = gradeTable.insertRow(-1)
+          let cell1 = row.insertCell(0) //No Activity
+          let cell2 = row.insertCell(1) //Activity
+          let cell3 = row.insertCell(2) // Weight
+          let cell4 = row.insertCell(3) // Grade
+
+          cell1.innerHTML = noActivity
+          cell2.innerHTML = activityInput
+          cell3.innerHTML = weightInput
+
+          // Resetting the inputs after submission 
+          document.getElementById("activity-input").value = ""
+          document.getElementById("weight-input").value = ""
+        }
+
+
+        function deleteActivity() {
+
+          let tableLength = gradeTable.rows.length
+
+          if (tableLength <= 1) {
+            deleteErrorText.innerHTML = "No more activities to remove"
+            return
+          }
+
+          gradeTable.deleteRow(-1);
+
+        }
+
+        function addGrade() {
+          let gradeInput = document.getElementById("grade-input").value
+          let activityNo = document.getElementById("activityNo-input").value
+          let table = document.getElementById("gradeTable")
+
+
+          if (!ValidateGrade()) {
+            return
+          }
+
+          if (!ValidateActivityNo()) {
+            return
+          }
+
+
+          table.rows[activityNo].cells[3].innerHTML = gradeInput
+
+          //resetting values to empty
+          document.getElementById("grade-input").value = ""
+          document.getElementById("activityNo-input").value = ""
+
+        }  
+      </script>
+  </body>
+
+</html>
