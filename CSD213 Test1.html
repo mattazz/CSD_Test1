@@ -216,7 +216,10 @@
 
 
         function deleteActivity() {
-          noActivity--
+          if(noActivity>0){
+
+            noActivity--
+          }
           let tableLength = gradeTable.rows.length
 
           if (tableLength <= 1) {
