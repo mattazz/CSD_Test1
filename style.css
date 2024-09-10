@@ -7,26 +7,25 @@ body{
     margin-bottom: 40px;
 }
 
-#name-notice,#price-notice,#serial-notice{
-    color: red;
-}
-.form-container{
+#container{
     border: 1px solid black;
     box-shadow: 10px 10px black;
     border-radius: 20px;
     margin: auto;
     margin-bottom: 40px;
-    width: 300px;
+    width: 600px;
     padding: 20px;
     text-align: center;
     transition: 0.2s all;
 }
-
-.form-container:hover{
+#container:hover{
     transition: 0.2s all;
     transform: scale(1.1);
-    background-color: blue;
-    color: white;
+    background-color: rgb(209, 177, 255);
+    color: black;
+}
+#name-notice,#price-notice,#serial-notice{
+    color: red;
 }
 input{
     display: inline-block;

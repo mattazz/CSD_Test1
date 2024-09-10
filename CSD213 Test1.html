@@ -2,6 +2,7 @@
 <html>
 
   <head>
+    <link rel="stylesheet" href="style.css">
     <style>
       table {
         text-align: center;
@@ -32,6 +33,7 @@
     <div align="center">
       <h1>Grade Calculator</h1>
 
+      <div id="container">
       <button onclick="addActivity()" id="activity-button">
         Add Activity</button>
 
@@ -52,6 +54,7 @@
 
       <button onclick="deleteActivity()" id="deleteActivity-button">
         Delete Activity </button>
+      </div>
 
       <table border="2" id="gradeTable" style="width:80%">
         <tr>
@@ -128,7 +131,7 @@
 
         function ValidateGrade() {
           let grade = document.getElementById("grade-input").value
-          let gradeRegEx = /`^[0-9]+$/
+          let gradeRegEx = /^[0-9]+$/
 
           if (grade == "") {
             gradeErrorText.innerHTML = "Grade can't be empty"
