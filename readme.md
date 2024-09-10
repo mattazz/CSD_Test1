@@ -10,6 +10,6 @@
 - [x] If Activity no does not exist, the error message is Error Message: Activity No is rejected.
 - [x] If the activity has a grade, the new grade replaces the existing one.
 - [x] After adding the grade, the input field of Grade and Activity no become blank.
-- [ ] [Delete Activity] This button deletes the last activity. For example, if the user presses the Delete Activity three times, the output would be like the below:
+- [x] [Delete Activity] This button deletes the last activity. For example, if the user presses the Delete Activity three times, the output would be like the below:
 - [x] If no more activities are left to be deleted, the error message is Error Message: No more activities to remove.
-- [ ] Adding an activity in this example, will give a result in Activity no of 3.
+- [x] Adding an activity in this example, will give a result in Activity no of 3.
